@@ -1,0 +1,17 @@
+{
+  "name": "antigravity-self-evolving-reviews",
+  "description": "Self-evolving AI review workflows for Antigravity 2. Meta-prompts analyze your codebase and generate hyper-specific, workspace-tailored prompts for code review, architecture audits, feature planning, and more.",
+  "version": "1.2.0",
+  "author": {
+    "name": "ThMoJe"
+  },
+  "repository": "ThMoJe/antigravity-self-evolving-reviews",
+  "license": "MIT",
+  "keywords": [
+    "antigravity",
+    "plugin",
+    "code-review",
+    "meta-prompts",
+    "self-evolving"
+  ]
+}

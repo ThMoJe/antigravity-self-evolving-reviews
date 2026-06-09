@@ -1,0 +1,110 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "ignoreExportsUsedInFile": true,
+
+  // Global ignore patterns — keep .d.ts files as they are never "unused" in the traditional sense
+  "ignore": ["**/*.d.ts"],
+
+  // ──────────────────────────────────────────────────────────────────────────
+  // HOW TO USE THIS FILE
+  // ──────────────────────────────────────────────────────────────────────────
+  //
+  // 1. Replace the workspace entries below with YOUR actual workspace names.
+  //    A "workspace" is any directory that has its own package.json.
+  //    Common patterns:
+  //      - Monorepo:  "client", "server", "admin-ui", "packages/types"
+  //      - Standalone: "." (just the root)
+  //      - Python/Rust: Knip is Node.js-specific — use vulture or cargo-udeps instead
+  //
+  // 2. For each workspace, configure:
+  //    - "entry": files Knip should treat as entry points (not flagged as orphaned)
+  //    - "project": the glob of all source files to analyze
+  //    - "ignoreDependencies": packages that are loaded at runtime (not imported in code)
+  //    - "ignoreBinaries": CLI tools used in scripts but not imported
+  //
+  // 3. Scroll down for OPTIONAL SECTIONS you can uncomment if they match your stack.
+  // ──────────────────────────────────────────────────────────────────────────
+
+  "workspaces": {
+
+    // ── Root workspace ───────────────────────────────────────────────────────
+    ".": {
+      "entry": [
+        // Add your root-level entry points here. Examples:
+        // "src/index.ts",        ← TypeScript app
+        // "src/main.py",         ← (Knip is JS/TS only — ignore Python files)
+        // "scripts/*.{js,ts}"    ← standalone scripts
+      ],
+      "project": [
+        // Add the glob that covers all your source files at root level. Examples:
+        // "src/**/*.{ts,tsx}",
+        // "scripts/**/*.{js,ts}"
+      ],
+      "ignoreDependencies": [
+        // List packages that are loaded at runtime (not via import/require).
+        // Examples: "tsx", "ts-node", "dotenv" (if loaded via CLI flag)
+      ],
+      "ignoreBinaries": [
+        // List CLI tools used in npm scripts but never imported. Examples: "concurrently", "cross-env"
+      ]
+    }
+
+    // ── EXAMPLE: Frontend workspace (React/Vite) ────────────────────────────
+    // Uncomment and rename "client" to your actual frontend workspace directory.
+    //
+    // "client": {
+    //   "entry": [
+    //     "src/main.tsx",        ← Vite app entry
+    //     "src/main.ts",         ← Non-JSX entry
+    //     "vite.config.ts"       ← Vite config
+    //   ],
+    //   "project": ["src/**/*.{ts,tsx}"],
+    //   "ignoreDependencies": [
+    //     // Uncomment if you use Capacitor — native runtime bridges are never directly imported
+    //     // "@capacitor/assets",
+    //     // "@capacitor/status-bar",
+    //     // "@capacitor/push-notifications"
+    //   ],
+    //   "ignoreBinaries": [
+    //     // Uncomment if you use cross-env in npm scripts
+    //     // "cross-env"
+    //   ]
+    // },
+
+    // ── EXAMPLE: Backend workspace (Node.js/Express/Fastify) ─────────────────
+    // Uncomment and rename "server" to your actual backend workspace directory.
+    //
+    // "server": {
+    //   "entry": [
+    //     "index.ts",                  ← Main server entry
+    //     "scripts/*.{ts,js}",         ← Standalone CLI scripts
+    //     // Uncomment if you use database migrations:
+    //     // "migrations/*.ts",
+    //     // Uncomment if you use BullMQ or similar background workers:
+    //     // "workers/*.ts",
+    //     // "queues/*.ts"
+    //   ],
+    //   "project": ["**/*.ts"],
+    //   "ignore": [
+    //     // Uncomment if you have an archived migrations directory:
+    //     // "migrations/archived/**"
+    //   ],
+    //   "ignoreDependencies": [
+    //     // Uncomment the packages that apply to your stack:
+    //     // "pg-hstore",    ← Runtime-only hstore serializer (loaded by Sequelize)
+    //     // "pino-pretty",  ← Dev-only log transport, loaded via CLI flag
+    //     // "dotenv",       ← Loaded via CLI: node -r dotenv/config
+    //   ]
+    // },
+
+    // ── EXAMPLE: Additional frontend app (e.g., admin panel) ─────────────────
+    // Uncomment and rename "admin-ui" to your actual directory name.
+    //
+    // "admin-ui": {},
+
+    // ── EXAMPLE: Shared types/utilities package ───────────────────────────────
+    // Uncomment and rename "packages/types" to your actual shared package path.
+    //
+    // "packages/types": {}
+  }
+}

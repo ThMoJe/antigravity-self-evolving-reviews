@@ -1,0 +1,27 @@
+# ========================================
+# Antigravity Self-Evolving Reviews
+# Minimal .gitignore for the template repo itself
+# ========================================
+# The full, project-ready gitignore template is in example.gitignore
+# Rename/merge that into your project's .gitignore
+
+# AI agent artifacts
+.gemini/
+.antigravitycli/
+.ai-scratch/
+*.ai-draft.md
+
+# The shipped template is at templates/_example.GEMINI.md
+# GEMINI.md is committed so developer rules are shared
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+
+# Dependencies
+node_modules/
