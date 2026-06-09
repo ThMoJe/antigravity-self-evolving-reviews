@@ -10,6 +10,9 @@ This skill bootstraps a new workspace with the self-evolving reviews system. It 
 > [!IMPORTANT]
 > This skill **never** overwrites existing files in the workspace. All configuration templates are copied with an `_example.` prefix, requiring a manual merge step by the developer.
 
+> [!NOTE]
+> **Local Installation**: If this plugin was installed locally using the workspace installer script (`install.ps1` or `install.sh`), all directories, prompts, and config templates are **already** copied to your workspace. You can skip directly to **Step 4: Display Manual Merge Instructions** or run `/generate-review-prompts` immediately.
+
 ## Step 1: Locate the Plugin Directory
 
 Determine the installed plugin path. The plugin is installed at one of these standard locations:

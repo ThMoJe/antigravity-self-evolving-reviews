@@ -22,7 +22,7 @@ You are currently running inside a VS Code workspace. The user wants a spring cl
     *   **Authentication**: Check for auth providers/libraries. Note what is detected.
     *   **Linting**: Check for ESLint/other linter configs and identify enforced rules that affect spring cleaning scope.
     *   **Scripts**: List standalone scripts in `scripts/` directories — these use `console.log`/`print` legitimately and should not be flagged.
-    *   **Skills Detection**: Scan the `skills/` or `.skills/` directory (if present). Parse each modular skill (`SKILL.md`). The generated prompt MUST protect all files inside modular skill directories (runbooks, helper scripts, resource files, templates, and implementation examples) from accidental deletion, and NEVER flag them as orphaned files or dead code.
+    *   **Skills Detection**: Scan the `.agent/skills/` or `skills/` directory (if present). Parse each modular skill (`SKILL.md`). The generated prompt MUST protect all files inside modular skill directories (runbooks, helper scripts, resource files, templates, and implementation examples) from accidental deletion, and NEVER flag them as orphaned files or dead code.
     *   **MCP Servers**: Parse the Antigravity MCP config (typically `~/.gemini/antigravity-ide/mcp_config.json`). Record **exactly which servers are configured**. The generated prompt must only reference MCP tools that are confirmed present — do NOT hardcode a list of expected servers.
     *   **Known Patterns**: Check if `docs/prompts/known-patterns.md` exists and contains documented intentional patterns. If so, the generated prompt MUST instruct the cleaning agent to consult this file before flagging suspicious structural patterns as dead code or technical debt.
 

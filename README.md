@@ -1,16 +1,16 @@
 # 🌌 Antigravity Self-Evolving Reviews
 
-> Antigravity 2 plugin that makes your AI code reviews **smarter over time**. Meta-prompts analyze your codebase and generate hyper-specific review workflows — perfectly tailored to your stack, architecture, and team standards.
+> Antigravity 2 (local/workspace) plugin that makes your AI code reviews **smarter over time**. Meta-prompts analyze your codebase and generate hyper-specific review workflows — perfectly tailored to your stack, architecture, and team standards.
 
 > [!NOTE]
 > **Opinionated by design.** This plugin is built around the **Vibe Coding** philosophy — a coding methodology optimized for AI-assisted solo development. Concepts like the 10-Second Rule, God Component thresholds, and the Vibe Score are core to every review workflow. If your team follows a different methodology, you can [customize the meta-prompts](#-customization) or fork the plugin.
 
-![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)  
+![Version](https://img.shields.io/badge/version-1.2.1-blue.svg)  
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ---
 
-## 🧠 What Is This?
+## What Is This?
 
 Most AI code review prompts are generic. They don't know your database schema, your monorepo structure, or why you use `as any` in exactly one place in your Sequelize queries.
 
@@ -27,55 +27,87 @@ Because the meta-prompts regenerate the prompts on demand, your workflows **self
 
 ---
 
-## ✨ Features
+## Features
 
-### 🔄 Meta-Prompt-Backed Skills
+### Meta-Prompt-Backed Skills
 
 *These skills read from a generated, workspace-specific prompt. Run `/generate-review-prompts` after setup to activate them.*
 
 > [!TIP]
 > Run `/generate-review-prompts` whenever a new feature is implemented or your tech stack changes. This includes changes to the workspace codebase itself, as well as introducing new MCP servers or custom skills in AntiGravity, ensuring your review prompts remain adapted to both your code and your execution environment.
 
-| Skill                           | Command                    | Description                                                                       |
-| ------------------------------- | -------------------------- | --------------------------------------------------------------------------------- |
-| 🔍 **Run Code Review**          | `/run-code-review`         | High-fidelity Vibe Coding compliance review with graded Vibe Report               |
-| 🌸 **Run Spring Cleaning**      | `/run-spring-cleaning`     | Dead code, unused dependencies, and stale file analysis                           |
-| 🏗️ **Run Architecture Review** | `/run-architecture-review` | Full-spectrum architectural audit using live MCP data                             |
-| 📖 **Generate README**          | `/generate-readme`         | Regenerates README.md from actual codebase state                                  |
-| ✅ **Run Feature Complete**      | `/run-feature-complete`    | Updates all documentation, changelog, and project artifacts after a feature ships |
-| 🗺️ **Run Feature Plan**        | `/run-feature-plan`        | Pre-flight reconnaissance + full-stack implementation plan for a new feature      |
+| Skill                       | Command                    | Description                                                                       |
+| --------------------------- | -------------------------- | --------------------------------------------------------------------------------- |
+| **Run Code Review**         | `/run-code-review`         | High-fidelity Vibe Coding compliance review with graded Vibe Report               |
+| **Run Spring Cleaning**     | `/run-spring-cleaning`     | Dead code, unused dependencies, and stale file analysis                           |
+| **Run Architecture Review** | `/run-architecture-review` | Full-spectrum architectural audit using live MCP data                             |
+| **Generate README**         | `/generate-readme`         | Regenerates README.md from actual codebase state                                  |
+| **Run Feature Complete**    | `/run-feature-complete`    | Updates all documentation, changelog, and project artifacts after a feature ships |
+| **Run Feature Plan**        | `/run-feature-plan`        | Pre-flight reconnaissance + full-stack implementation plan for a new feature      |
 
-### ⚡ Static Skills
+### Static Skills
 
 *These skills are intentionally workspace-agnostic. They do not use a generated prompt — see [Why Some Skills Are Static](#-why-some-skills-are-static).*
 
-| Skill                          | Command                             | Description                                                                      |
-| ------------------------------ | ----------------------------------- | -------------------------------------------------------------------------------- |
-| 🗂️ **Run Config Layer Audit** | `/run-config-layer-audit`           | Harmonizes GEMINI.md, skills, docs, and Knowledge Base using the Decision Matrix |
-| 📋 **Plan Review 1**           | `/run-implementation-plan-review-1` | Gemini-role critique of Claude's implementation plan                             |
-| 📋 **Plan Review 2**           | `/run-implementation-plan-review-2` | Claude finalizes the battle-tested master implementation plan                    |
+| Skill                      | Command                             | Description                                                                      |
+| -------------------------- | ----------------------------------- | -------------------------------------------------------------------------------- |
+| **Run Config Layer Audit** | `/run-config-layer-audit`           | Harmonizes GEMINI.md, skills, docs, and Knowledge Base using the Decision Matrix |
+| **Plan Review 1**          | `/run-implementation-plan-review-1` | Gemini-role critique of Claude's implementation plan                             |
+| **Plan Review 2**          | `/run-implementation-plan-review-2` | Claude finalizes the battle-tested master implementation plan                    |
 
-### 🛠️ Utility Skills
+### Utility Skills
 
-| Skill                          | Command                    | Description                                                                              |
-| ------------------------------ | -------------------------- | ---------------------------------------------------------------------------------------- |
-| 🛠️ **Setup Reviews**          | `/setup-reviews`           | Bootstraps a new workspace with sample prompts, report directories, and config templates |
-| ⚙️ **Generate Review Prompts** | `/generate-review-prompts` | Regenerates all 6 workspace-tailored prompts from meta-prompt sources                    |
-| 🗑️ **Run Retention Cleanup**  | `/run-retention-cleanup`   | Archives and prunes old reports per retention policy                                     |
-
----
-
-## 🚀 Installation
-
-Install the plugin using the Antigravity CLI:
-
-```bash
-agy plugin install ThMoJe/antigravity-self-evolving-reviews
-```
+| Skill                       | Command                    | Description                                                                              |
+| --------------------------- | -------------------------- | ---------------------------------------------------------------------------------------- |
+| **Setup Reviews**           | `/setup-reviews`           | Bootstraps a new workspace with sample prompts, report directories, and config templates |
+| **Generate Review Prompts** | `/generate-review-prompts` | Regenerates all 6 workspace-tailored prompts from meta-prompt sources                    |
+| **Run Retention Cleanup**   | `/run-retention-cleanup`   | Archives and prunes old reports per retention policy                                     |
 
 ---
 
-## 📋 Prerequisites & Compatibility
+## Installation
+
+> [!IMPORTANT]
+> **Run within a workspace root**: This plugin is designed to operate on a specific codebase. Whether installing locally or globally, you must run the installation command or bootstrap the plugin **inside the root directory of your project workspace**, not as a general Antigravity global tool without a workspace context.
+
+You can install this plugin either **locally** (recommended to restrict the plugin entirely to your workspace and keep it inside your project's repository) or **globally** for all workspaces.
+
+### Option A: Local Workspace Installation (Recommended)
+
+This method restricts the installation entirely to the current workspace root. It downloads the installation script, clones the repository to a temporary directory, and copies the `skills/` (into `.agent/skills/` so they are automatically detected as workspace skills) and `docs/` folders directly into your project workspace (without modifying any global Antigravity configuration or files):
+
+1. Open your terminal and navigate (`cd`) to your **workspace root**.
+2. Run the command matching your operating system:
+
+- **Windows (PowerShell)**:
+  ```powershell
+  irm https://raw.githubusercontent.com/ThMoJe/antigravity-self-evolving-reviews/main/install.ps1 | iex
+  ```
+- **macOS / Linux (Bash)**:
+  ```bash
+  curl -fsSL https://raw.githubusercontent.com/ThMoJe/antigravity-self-evolving-reviews/main/install.sh | bash
+  ```
+
+After running the script, your workspace is fully bootstrapped and you can skip the `/setup-reviews` step.
+
+---
+
+### Option B: Global Installation (Not recommended/Not tested)
+
+If you prefer to install the plugin globally across all workspaces, you can use the Antigravity CLI. Note that you will still need to bootstrap individual workspaces afterward:
+
+1. Install the plugin globally:
+  ```bash
+   agy plugin install ThMoJe/antigravity-self-evolving-reviews
+  ```
+2. Navigate (`cd`) to your **workspace root** and run the workspace setup command:
+  ```
+   /setup-reviews
+  ```
+
+---
+
+## Prerequisites & Compatibility
 
 | Requirement     | Details                                                     |
 | --------------- | ----------------------------------------------------------- |
@@ -98,15 +130,16 @@ These tools are **not required** but significantly enhance review quality when p
 
 ---
 
-## 🏁 Getting Started
+## Getting Started
 
-After installation, run the setup skill in any workspace to bootstrap it:
+### 1. Workspace Bootstrap
 
-```
-/setup-reviews
-```
-
-This copies the `docs/` folder (sample prompts + report directories) and `_example.*` config templates into your workspace root, then displays instructions for merging them with your existing configuration.
+- **If you installed locally (Option A)**: Your workspace is already bootstrapped with the necessary folders and `_example.*` templates. You can skip to step 2.
+- **If you installed globally (Option B)**: Run the setup skill in your workspace to bootstrap it:
+  ```
+  /setup-reviews
+  ```
+  This copies the `docs/` folder (sample prompts + report directories) and `_example.*` config templates into your workspace root.
 
 Then regenerate workspace-specific prompts:
 
@@ -117,7 +150,7 @@ Then regenerate workspace-specific prompts:
 This executes all 6 meta-prompts against your actual codebase, overwriting the scaffold placeholders with prompts tailored to your stack and patterns.
 
 > [!NOTE]
-> Meta-prompts are currently executed sequentially. Parallel execution via Antigravity subagents is under consideration for a future release.
+> Meta-prompts are currently executed sequentially. Parallel execution via Antigravity subagents is an option but not implemented, even you might experience it happening anyway.
 
 ---
 
@@ -160,12 +193,12 @@ antigravity-self-evolving-reviews/
 │   ├── generate-review-prompts/SKILL.md
 │   └── run-retention-cleanup/SKILL.md
 │
-├── templates/                            # Workspace configuration templates
-│   ├── _example.GEMINI.md               # Project rules template → merge into GEMINI.md
-│   ├── _example.package.json            # Package.json template → merge into package.json
-│   ├── _example.knip.jsonc              # Knip config template → merge into knip.jsonc
-│   ├── _example.gitignore               # Gitignore template → merge into .gitignore
-│   └── _example.CHANGELOG.md            # Changelog template → merge into CHANGELOG.md
+├── templates/                           # Workspace configuration templates
+│   ├── _example.GEMINI.md               # Project rules template → manual merge into GEMINI.md
+│   ├── _example.package.json            # Package.json template → manual merge into package.json
+│   ├── _example.knip.jsonc              # Knip config template → manual merge into knip.jsonc
+│   ├── _example.gitignore               # Gitignore template → manual merge into .gitignore
+│   └── _example.CHANGELOG.md            # Changelog template → manual merge into CHANGELOG.md
 │
 └── docs/                                 # Prompts, meta-prompts, and report directories
     ├── prompts/
@@ -176,12 +209,12 @@ antigravity-self-evolving-reviews/
     │   │   ├── optimize-architecture-review.md
     │   │   ├── optimize-feature-complete.md
     │   │   └── optimize-feature-plan.md
-    │   ├── code-review-prompt.md         # Generated output (scaffold → overwritten by /generate-review-prompts)
-    │   ├── spring-cleaning-prompt.md
-    │   ├── architecture-review.md
-    │   ├── readme-generation-prompt.md
-    │   ├── feature-complete.md
-    │   ├── feature-plan-prompt.md
+    │   ├── code-review-prompt.md         # Overwritten by /generate-review-prompts
+    │   ├── spring-cleaning-prompt.md     # Overwritten by /generate-review-prompts
+    │   ├── architecture-review.md        # Overwritten by /generate-review-prompts
+    │   ├── readme-generation-prompt.md   # Overwritten by /generate-review-prompts
+    │   ├── feature-complete.md           # Overwritten by /generate-review-prompts
+    │   ├── feature-plan-prompt.md        # Overwritten by /generate-review-prompts
     │   └── known-patterns.md             # Reference template for known code patterns
     └── reports/
         ├── code-review/                  # Keeps last 5 reports
@@ -192,7 +225,7 @@ antigravity-self-evolving-reviews/
 
 ---
 
-## 🗺️ Development Lifecycle
+## Development Lifecycle
 
 ### Initial Setup (One-Time)
 
@@ -260,7 +293,7 @@ flowchart TD
 
 ---
 
-## ⚙️ Self-Evolving Prompt Pipeline
+## Self-Evolving Prompt Pipeline
 
 ```
 Meta-Prompt (SOURCE — edit this)    →   Generated Prompt (OUTPUT — never edit directly)
@@ -281,7 +314,7 @@ docs/prompts/_meta/optimize-feature-plan.md         → docs/prompts/feature-pla
 
 ---
 
-## 🔒 Why Some Skills Are Static
+## Why Some Skills Are Static
 
 Not every skill benefits from a workspace-specific generated prompt. Three skills in this plugin are intentionally **static** — they ship with fixed instructions and do not participate in the meta-prompt pipeline. Here's why:
 
@@ -328,7 +361,7 @@ To add an entirely new meta-prompt-backed skill:
 
 ---
 
-## 🔄 Report Retention Policy
+## Report Retention Policy
 
 | Report Type         | Location                            | Retention                      |
 | ------------------- | ----------------------------------- | ------------------------------ |
@@ -341,7 +374,7 @@ Run `/run-retention-cleanup` anytime to apply this policy manually.
 
 ---
 
-## 🛡️ Safe Workspace Initialization
+## Safe Workspace Initialization
 
 The `/setup-reviews` skill **never** overwrites existing files. All configuration templates are copied with an `_example.` prefix, so you can review and merge them manually:
 
@@ -355,6 +388,6 @@ The `/setup-reviews` skill **never** overwrites existing files. All configuratio
 
 ---
 
-## 📜 License
+## License
 
 MIT © [ThMoJe](https://github.com/ThMoJe)

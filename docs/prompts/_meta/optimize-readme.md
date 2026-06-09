@@ -17,7 +17,7 @@ You are currently running inside a VS Code workspace. The existing prompt in `do
     *   Check for deployment tools (Caddy, nginx, Traefik, Docker, PM2, etc.).
     *   **Version Discovery**: Read **ALL manifest files** across all workspaces. For each significant framework and library, extract the **major version number**. Always include the major version when referencing a technology.
     *   **Configuration Scanning**: Scan configuration files (`eslint.config.js`, `vite.config.ts`, CI/CD workflows, Dockerfiles, etc.) to detect tools and infrastructure not visible in manifest files alone.
-    *   **Skills Detection**: Scan the `skills/` or `.skills/` directory (if present). Parse each modular skill (`SKILL.md`). The generated prompt MUST list all active operational domains and runbooks explicitly in the README.
+    *   **Skills Detection**: Scan the `.agent/skills/` or `skills/` directory (if present). Parse each modular skill (`SKILL.md`). The generated prompt MUST list all active operational domains and runbooks explicitly in the README.
     *   **MCP Server Detection**: Parse the Antigravity MCP config (typically `~/.gemini/antigravity-ide/mcp_config.json`) to identify active MCP context servers available to AI agents. **Only list servers that are actually configured.**
     *   **Pattern & Methodology Detection**: Identify architectural patterns in active use and coding methodologies from the project rules file.
 
@@ -137,7 +137,7 @@ The project is `{PROJECT_NAME}`. Analyze the current state of the codebase (file
   * **Contributing section**: If `CONTRIBUTING.md` exists, link to it. If `.github/PULL_REQUEST_TEMPLATE.md` exists, mention it. Otherwise write a short generic Contributing paragraph. Never omit this section.
 
 12. **Developer Context, Runbooks & AI Environments:**
-  * If a `skills/` or `.skills/` directory exists, create a section documenting the operational domains and developer skills available. Briefly describe what each runbook covers.
+  * If a `.agent/skills/` or `skills/` directory exists, create a section documenting the operational domains and developer skills available. Briefly describe what each runbook covers.
   * List the configured AI Context Servers (MCP) detected in the workspace so contributors know what context tools are available. Only list servers that are actually configured.
   * Document the **Execution Environments Matrix** (IDE vs. Application vs. CLI) from global rules if present, showing developers which environment fits their prompt workload best.
 

@@ -10,7 +10,7 @@ This workflow is executed when a user completes a feature. It must be perfectly 
 Before generating the workflow, actively scan the repository to understand the project's structure:
 *   **Tracking**: How are tasks and plans tracked? (e.g., `task.md`, `implementation_plan.md`, `docs/todo.md`).
 *   **Documentation**: Where is the high-level roadmap and backlog stored? (e.g., `docs/project/backlog.md`, `docs/roadmap.md`).
-*   **Rules & Skills**: Where are global AI rules and modular skills stored? (e.g., `GEMINI.md`, `skills/`, `.agent/`).
+*   **Rules & Skills**: Where are global AI rules and modular skills stored? (e.g., `GEMINI.md`, `.agent/skills/`).
 *   **Database**: Is a database used? How are schema changes tracked? (e.g., Sequelize models in `server/models`, Prisma schemas, SQL files, Mermaid ER diagrams in `docs/architecture/`).
 *   **Versioning**: What is the versioning strategy? (e.g., `CHANGELOG.md`, `package.json` workspaces, `build.gradle`, custom versioning scripts).
 *   **Verification**: What are the commands to run type-checks, tests, or builds? (e.g., `npm run type-check`, `pytest`, `cargo test`).
@@ -28,7 +28,7 @@ List the specific files (like `task.md` or `implementation_plan.md`) the AI must
 Provide exact paths to backlog or roadmap files and explain how the AI should move items to "Completed".
 
 **4. Update Project Rules & Modular Skills**
-Instruct the AI to update `GEMINI.md` or the `skills/` directory if the feature introduced new architectural patterns, dependencies, or reusable capabilities.
+Instruct the AI to update `GEMINI.md` or the `.agent/skills/` directory if the feature introduced new architectural patterns, dependencies, or reusable capabilities.
 
 **5. Update Knowledge Base & Other Docs**
 General instructions to ensure no existing documentation contradicts the new reality of the codebase.

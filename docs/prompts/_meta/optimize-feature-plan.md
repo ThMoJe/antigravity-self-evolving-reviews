@@ -17,7 +17,7 @@ You are currently running inside the target workspace. The user wants a feature 
    - **Deployment Architecture**: Check for reverse proxy, process manager, CI/CD pipelines, environment matrix, and deployment scripts.
    - **Existing Patterns**: Read `GEMINI.md` for coding standards, file size rules, module conventions, and the Vibe Coding priorities that must be enforced in every feature plan.
    - **MCP Servers Available**: Parse the Antigravity MCP config to identify **exactly which MCP servers are configured**. The generated prompt must only reference tools that are confirmed present — never assume specific servers exist.
-   - **Skills Detection**: Scan `skills/*/SKILL.md` and list the names of all active skills. The generated prompt must instruct the planning agent to consult relevant skills (e.g., database migration skill, deployment skill) rather than re-inventing procedures.
+   - **Skills Detection**: Scan `.agent/skills/*/SKILL.md` or `skills/*/SKILL.md` and list the names of all active skills. The generated prompt must instruct the planning agent to consult relevant skills (e.g., database migration skill, deployment skill) rather than re-inventing procedures.
 
 2. **Source of Truth Rule**:
    > [!WARNING]

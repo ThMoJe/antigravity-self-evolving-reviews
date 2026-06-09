@@ -22,7 +22,7 @@ You are currently running inside a VSCode workspace. The user wants a code revie
     *   **Project Rules**: Look for the primary rules file `GEMINI.md`. Note specific coding philosophies (e.g., "Vibe Coding", "10-Second Rule").
     *   **Key Files**: Identify important config files or documentation (e.g., `docs/project/roadmap.md`, `CHANGELOG.md`).
     *   **Linting**: Check for linter configs (e.g., `eslint.config.js`, `.pylintrc`, `clippy.toml`) and identify enforced rules relevant to code quality.
-    *   **Skills Detection**: Scan the `.skills/` or `skills/` directory (if present). Parse each modular skill (`SKILL.md`). The generated prompt MUST protect their boilerplate code, scripts, and resources, instructing the reviewing agent to consult them during evaluations and NEVER flag them as dead code, duplicates, or console logging violations.
+    *   **Skills Detection**: Scan the `.agent/skills/` or `skills/` directory (if present). Parse each modular skill (`SKILL.md`). The generated prompt MUST protect their boilerplate code, scripts, and resources, instructing the reviewing agent to consult them during evaluations and NEVER flag them as dead code, duplicates, or console logging violations.
     *   **MCP Servers**: Parse the Antigravity MCP config (typically `~/.gemini/antigravity-ide/mcp_config.json`). Record **exactly which servers are configured**. The generated prompt must only reference MCP tools that are confirmed present — never assume a specific tool exists.
     *   **Known Patterns**: Check if `docs/prompts/known-patterns.md` exists and contains documented intentional patterns. If so, the generated prompt MUST instruct the reviewing agent to consult this file before flagging suspicious patterns as bugs.
 

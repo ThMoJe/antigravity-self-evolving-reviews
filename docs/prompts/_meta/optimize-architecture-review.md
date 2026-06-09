@@ -28,7 +28,7 @@ You are currently running inside a VSCode workspace. The user wants an architect
     *   **Mobile / Hybrid App**: Check for mobile frameworks (Capacitor, React Native, Expo, Flutter, etc.). **If no mobile framework is detected, omit all mobile architecture sections.**
     *   **External Service Dependencies**: List all critical third-party services and assess coupling level. Do not assume specific services — derive this from manifest dependencies and config files.
     *   **Architecture Documentation**: Check for files in `docs/architecture/`. If found, the generated prompt MUST instruct the reviewing agent to cross-reference the actual system architecture with these documents.
-    *   **Skills Detection**: Scan the `skills/` or `.skills/` directory (if present). Parse each modular skill (`SKILL.md`). The generated prompt MUST instruct the reviewing agent to consult these skills when evaluating relevant architectural domains.
+    *   **Skills Detection**: Scan the `.agent/skills/` or `skills/` directory (if present). Parse each modular skill (`SKILL.md`). The generated prompt MUST instruct the reviewing agent to consult these skills when evaluating relevant architectural domains.
     *   **MCP Server Detection**: Parse the Antigravity MCP config (typically `~/.gemini/antigravity-ide/mcp_config.json`). Record **exactly which servers are configured**. The generated prompt must only reference MCP tools that are confirmed present.
     *   **Project Rules & Coding Philosophy**: Read `GEMINI.md` for architectural constraints, naming conventions, file size limits, and stated coding philosophies. Note any architectural rules that should be verified by this review.
 
@@ -368,7 +368,7 @@ After completing the architectural analysis, note any findings that should be **
 1. **Evidence over opinion** — Every claim must cite a file path, query result, or configuration value. "I believe" and "I think" are forbidden.
 2. **Systemic over localized** — If a finding affects only one file, delegate it to Code Review. This prompt covers cross-cutting concerns.
 3. **Roadmap-aware** — Consult `docs/project/roadmap.md` (if it exists) to validate whether recommendations align with planned direction. Don't recommend infrastructure for features that aren't on the roadmap.
-4. **Skills-aware** — When evaluating domains covered by `skills/` runbooks, consult the relevant skill to avoid contradicting established procedures.
+4. **Skills-aware** — When evaluating domains covered by `.agent/skills/` (or `skills/`) runbooks, consult the relevant skill to avoid contradicting established procedures.
 5. **Actionable** — Every recommendation must specify effort, impact, and which quarter of the roadmap it fits into.
 
 ---
