@@ -151,6 +151,9 @@ For each phase, recommend the optimal AI model and mode from the Antigravity 2.0
 3. **Zero Regressions**: Cross-check the plan against existing functionality. Call out any risk of breakage.
 4. **10-Second Rule**: If a planned file would take > 10 seconds to explain, split it into focused modules.
 5. **Performance**: For mobile clients, ensure rendering is not blocked by heavy payloads.
+6. **Karpathy Principle - Think Before Coding**: State assumptions explicitly in the plan. Surface architectural tradeoffs. Do not hide confusion.
+7. **Karpathy Principle - Simplicity First**: Plan the minimum code necessary. No speculative features or abstractions for single-use code.
+8. **Karpathy Principle - Surgical Changes**: The plan must only touch what is necessary. Do not include refactoring of unrelated code.
 
 ---
 

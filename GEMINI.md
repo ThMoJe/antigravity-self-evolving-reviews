@@ -152,6 +152,17 @@ This is what makes the system "self-evolving": as meta-prompts get smarter, any 
 
 ---
 
+## 🧠 Karpathy-Inspired Coding Principles
+
+> *Derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) and the [andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills) repository.*
+
+1. **Think Before Coding**: Don't assume. Don't hide confusion. Surface tradeoffs. If multiple interpretations exist, present them.
+2. **Simplicity First**: Write the minimum code that solves the problem. No speculative features, no abstractions for single-use code. If 200 lines could be 50, rewrite it.
+3. **Surgical Changes**: Touch only what you must. Clean up only your own mess. Don't refactor adjacent code that isn't broken.
+4. **Goal-Driven Execution**: Work towards verifiable success criteria.
+
+---
+
 ## 🛑 Non-Assumption Protocol
 
 > These rules apply to all work on this plugin without exception.

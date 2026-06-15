@@ -143,6 +143,16 @@ If it takes more than 10 seconds to explain a file's purpose to an AI, the file 
 | 475–499 | 🔴 RED | Provide decomposition plan now |
 | 500+ | 💀 God Component | Must decompose before next feature |
 
+### 🧠 Karpathy-Inspired Coding Principles
+> *Enforce [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.*
+
+| Check | Target | Status |
+|:------|:-------|:-------|
+| No speculative features beyond requirements | All changes | ✅/❌ |
+| No abstractions for single-use code | All changes | ✅/❌ |
+| No non-surgical changes (refactoring unrelated code) | All changes | ✅/❌ |
+| Assumptions are explicitly stated if uncertain | Documentation / Comments | ✅/❌ |
+
 ### 🧹 {CLEANUP_RULE_NAME}
 
 {DEAD_CODE_TOOL_SECTION:
