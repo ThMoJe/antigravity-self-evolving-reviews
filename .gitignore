@@ -10,6 +10,7 @@
 .antigravitycli/
 .ai-scratch/
 *.ai-draft.md
+.playwright-mcp/
 
 # The shipped template is at templates/_example.GEMINI.md
 # GEMINI.md is committed so developer rules are shared

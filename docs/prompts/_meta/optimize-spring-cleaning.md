@@ -188,6 +188,17 @@ For each package, analyze:
 - **Safe to update**: Patch/minor updates with no breaking changes indicated
 - **No need to update**: Already on latest or update provides no meaningful benefit
 
+**Pre-Release Exclusion Rule** ⚠️:
+Before flagging any package as a MAJOR update candidate, check whether the "latest" version reported by the update tool is a pre-release. A version is a pre-release if its string contains a hyphen (e.g. `7.0.0-beta.6`, `8.0.0-alpha.2`, `6.0.0-rc.1`).
+
+- **If the latest version is a pre-release**: Do NOT flag it as an actionable upgrade. Only include it in the report if it resolves a **known active bug or security vulnerability** in the currently installed version. If there is no active problem, **omit it entirely** — do not list it in the table, do not add it to Recommended Actions.
+- **If the latest version is stable**: Apply the Risk Assessment Criteria above as normal.
+
+Run the package update tool with the `--pre false` flag (or equivalent) to avoid surfacing pre-releases as candidates in the first place:
+```powershell
+npx npm-check-updates --pre false
+```
+
 {LOGGING_SECTION_IF_DETECTED:
 ### 7. 📊 Logging Compliance
 
@@ -266,7 +277,20 @@ No database MCP tool is configured. Perform manual schema hygiene by reading mod
 }
 }
 
-### 11. ⚙️ Configuration Drift
+{FRONTEND_FRAMEWORK_UI_MODERNIZATION_IF_DETECTED:
+### 11. 🎨 UI Modernization Opportunities
+
+[CONDITIONAL: Only include if a frontend framework was detected]
+
+Verify compliance with modern web platform capabilities. The goal is to identify places where custom code can be replaced with native browser APIs, reducing bundle size and improving platform integration:
+
+- **Legacy Modal & Overlay Implementations**: Identify custom modal, dialog, or overlay components that could be refactored to use the native HTML `<dialog>` element. Native `<dialog>` provides built-in focus trapping, backdrop, and Escape key handling.
+- **Hardcoded External Font Imports**: Scan for hardcoded font family references (e.g., `'Inter'`, `'Roboto'`) that load from external CDNs. Evaluate whether a system font stack (`ui-sans-serif, system-ui, sans-serif`) could replace them to eliminate the external dependency.
+- **`content-visibility: auto` Opportunities**: Identify list or feed containers that render many items and could benefit from `content-visibility: auto` to defer off-screen rendering.
+- **Unused Animation Library Imports**: Search for animation library imports (e.g., Framer Motion, GSAP) in files where they are imported but not meaningfully used. Flag for cleanup.
+}
+
+### 12. ⚙️ Configuration Drift
 
 Verify the project's environment variable documentation is accurate and complete:
 
@@ -274,7 +298,7 @@ Verify the project's environment variable documentation is accurate and complete
 - **Stale `.env.example` entries**: Flag any variable defined in `.env.example` that is no longer referenced in any source file.
 - **Consistency across workspaces**: Verify that variables shared across workspaces are consistently documented in all relevant `.env.example` files.
 
-### 12. 📚 Documentation Staleness
+### 13. 📚 Documentation Staleness
 
 Verify project documentation accurately reflects the current codebase:
 
@@ -283,28 +307,28 @@ Verify project documentation accurately reflects the current codebase:
 {GIT_TAG_CHANGELOG_IF_DETECTED:- **CHANGELOG vs git tags**: List all release tags. Check that each tag has a corresponding entry in `CHANGELOG.md`. Flag gaps.}
 - **Feature status accuracy**: Compare `docs/project/feature-status.md` against `docs/guides/` if they exist — every item marked "Completed" should have a corresponding guide.
 
-### 13. 🧪 Test Hygiene
+### 14. 🧪 Test Hygiene
 
 - **Orphaned test files**: Find test files whose corresponding source file no longer exists. These are safe-to-delete candidates.
 - **Skipped/disabled tests**: Scan for `it.skip`, `describe.skip`, `xit`, `xdescribe`, `test.todo`, `@pytest.mark.skip`, or equivalent. Report each with the file and line number.
 - **Empty test files**: Identify test files that contain no assertions — skeleton files with no assertions.
 - **Test coverage absence**: If no testing framework is detected in any manifest, flag the entire test infrastructure as missing technical debt.
 
-### 14. 🔒 Security Audit
+### 15. 🔒 Security Audit
 
 - **Dependency vulnerabilities**: Run `npm audit` / `pip audit` / `cargo audit` / equivalent across all workspaces. Report all findings with severity level.
 - **Hardcoded secrets**: Scan source files for patterns matching API keys, passwords, connection strings, or private keys hardcoded as string literals. Flag any match.
 - **`.gitignore` coverage**: Verify `.gitignore` covers sensitive files (`.env`, `*.env`, service account JSON, `*.keystore`, `*.jks`, `*.p12`). Flag any sensitive file pattern that is missing.
 - **CI/CD secrets safety**: Scan CI/CD workflow files for hardcoded secrets. All credentials should use secret injection syntax, never hardcoded values.
 
-### 15. 🗃️ Git Hygiene
+### 16. 🗃️ Git Hygiene
 
 - **Large tracked files**: Identify any file tracked in git that exceeds 1 MB (binaries, database dumps, images). These should be in `.gitignore` or moved to Git LFS.
 - **`.gitignore` gaps**: Check for build artifacts (`dist/`, `build/`, `.next/`), IDE configs, and OS files (`Thumbs.db`, `.DS_Store`) that should be ignored.
 - **Untracked generated files**: Check for generated files that appear in the working tree but are missing from `.gitignore`.
 
 {MOBILE_SECTION_IF_DETECTED:
-### 16. 📱 {MOBILE_FRAMEWORK} App Hygiene
+### 17. 📱 {MOBILE_FRAMEWORK} App Hygiene
 
 [CONDITIONAL: Only include if a mobile framework was detected]
 
@@ -478,6 +502,18 @@ Include the full output from `knip-output.txt` (generated in Task 0). Summarize 
 | Orphaned native plugins | ✅/❌ | Unused plugins? |
 | CI/CD secrets alignment | ✅/❌ | Missing or unused secrets? |
 }
+}
+
+{FRONTEND_UI_MODERNIZATION_OUTPUT_IF_DETECTED:
+### 🎨 UI Modernization Findings
+
+[CONDITIONAL: Only include if a frontend framework was detected]
+
+| Component / File | Type of Opportunity | Details | Priority |
+|:----------------|:--------------------|:--------|:--------|
+| `path/to/file` | e.g., Custom dialog overlay | Uses custom modal instead of native `<dialog>` | Low/Med/High |
+| `path/to/file` | e.g., Hardcoded font | References external font family | Low/Med/High |
+| `path/to/file` | e.g., Unused animation import | Framer Motion imported but not used | Low/Med/High |
 }
 
 ### 🔌 MCP Live Verification Results

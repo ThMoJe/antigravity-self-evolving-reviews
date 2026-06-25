@@ -151,6 +151,7 @@ If it takes more than 10 seconds to explain a file's purpose to an AI, the file 
 | No speculative features beyond requirements | All changes | ✅/❌ |
 | No abstractions for single-use code | All changes | ✅/❌ |
 | No non-surgical changes (refactoring unrelated code) | All changes | ✅/❌ |
+| Surgical Cleanup: newly unused imports, variables, or functions removed after changes | All changed files | ✅/❌ |
 | Assumptions are explicitly stated if uncertain | Documentation / Comments | ✅/❌ |
 
 ### 🧹 {CLEANUP_RULE_NAME}
@@ -421,6 +422,19 @@ Run each applicable check and record the result:
 }
 }
 
+{FRONTEND_FRAMEWORK_UI_MODERNIZATION_IF_DETECTED:
+### 🎨 UI Modernization Review
+
+[CONDITIONAL: Only include if a frontend framework was detected]
+
+Check for opportunities to adopt native web platform APIs, reducing custom code and improving compatibility:
+
+*   **Legacy Modal & Overlay Implementations**: Identify custom modal, dialog, or overlay components that could be replaced with the native HTML `<dialog>` element. Native `<dialog>` provides built-in focus trapping, backdrop, and Escape key handling with zero JavaScript overhead.
+*   **Hardcoded External Font Imports**: Scan for hardcoded font family references (e.g., `'Inter'`, `'Roboto'`) that load from external CDNs or Google Fonts. Evaluate whether a system font stack (`ui-sans-serif, system-ui, sans-serif`) could replace them to eliminate the network dependency.
+*   **`content-visibility: auto` Opportunities**: Identify list or feed containers that render many off-screen items and could benefit from `content-visibility: auto` to defer off-screen rendering work.
+*   **Unused Animation Library Imports**: Search for animation library imports (e.g., Framer Motion, GSAP, Animate.css) in files where they are imported but not meaningfully used.
+}
+
 ### 📛 Naming Conventions
 {NAMING_CONVENTION_DETAILS_IF_DETECTED:
 *   **Database**: Column naming ({NAMING_CONVENTION}).
@@ -444,6 +458,18 @@ For each issue, provide: **Title**, **Location**, **Why**, and **Fix**.
 
 ### 🚀 Refactor Plan ("Vibe Check")
 Identify the **single messiest file**. Provide a step-by-step plan to refactor it to meet {CODING_PHILOSOPHY} standards.
+
+{FRONTEND_UI_MODERNIZATION_OUTPUT_IF_DETECTED:
+### 🎨 UI Modernization Findings
+
+[CONDITIONAL: Only include if a frontend framework was detected]
+
+| Component / File | Type of Opportunity | Details | Priority |
+|:----------------|:--------------------|:--------|:--------|
+| `path/to/file` | e.g., Custom dialog overlay | Uses custom modal instead of native `<dialog>` | Low/Med/High |
+| `path/to/file` | e.g., Hardcoded font | References external font family | Low/Med/High |
+| `path/to/file` | e.g., Unused animation import | Animation library imported but not meaningfully used | Low/Med/High |
+}
 
 ### ✅ Grading Section
 Score (1-10) on: {CODING_PHILOSOPHY} Compliance, Security, Error Handling, Performance, {LOGGING_GRADE_IF_DETECTED: Logging & Observability,} {DATABASE_GRADE_IF_DETECTED: Database,} Testing, {ACCESSIBILITY_GRADE_IF_DETECTED: Accessibility,} Maintainability, and Overall.
